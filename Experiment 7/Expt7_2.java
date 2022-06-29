@@ -4,7 +4,6 @@ class Westside
 {
     static int clothes = 10;
     static int accessories = 10;
-    double price = 5000;
 }
 abstract class Payment
 {
@@ -24,9 +23,12 @@ class CashPayment extends Payment
         {
             if(Westside.clothes >= x)
             {
-                payment -= x*5000;
-                Westside.clothes -= x;
-                System.out.println("You bought clothes for Rs. "+(x*5000));
+                if(x!=0)
+                {
+                    payment -= x*5000;
+                    Westside.clothes -= x;
+                    System.out.println("You bought clothes for Rs. "+(x*5000));
+                }
             }
             else
                 System.out.println("Clothes are out of stock!");
@@ -37,9 +39,12 @@ class CashPayment extends Payment
         {
             if(Westside.accessories >= y)
             {
-                payment -= y*5000;
-                Westside.accessories -= y;
-                System.out.println("You bought accessories for Rs. "+(y*5000));
+                if(y!=0)
+                {
+                    payment -= y*5000;
+                    Westside.accessories -= y;
+                    System.out.println("You bought accessories for Rs. "+(y*5000));
+                }
             }
             else
                 System.out.println("Accessories are out of stock!");
@@ -67,28 +72,34 @@ class CreditCashPayment extends Payment
         {
             if(Westside.clothes >= x)
             {
-                payment -= x*5000;
-                Westside.clothes -= x;
-                System.out.println("You bought clothes for Rs. "+(x*5000));
+                if(x!=0)
+                {
+                    payment -= x*5000;
+                    Westside.clothes -= x;
+                    System.out.println("You bought clothes for Rs. "+(x*5000));
+                }
             }
             else
                 System.out.println("Clothes are out of stock!");
         }
         else
-            System.out.println("Not enough money to buy clothes!");
+            System.out.println("Not enough money to buy "+x+" clothes!");
         if(payment >= y*5000)
         {
             if(Westside.accessories >= y)
             {
-                payment -= y*5000;
-                Westside.accessories -= y;
-                System.out.println("You bought accessories for Rs. "+(y*5000));
+                if(y!=0)
+                {
+                    payment -= y*5000;
+                    Westside.accessories -= y;
+                    System.out.println("You bought accessories for Rs. "+(y*5000));
+                }
             }
             else
                 System.out.println("Accessories are out of stock!");
         }
         else
-            System.out.println("Not enough money to buy accessories!");
+            System.out.println("Not enough money to buy "+y+" accessories!");
         
     }
     void display()
@@ -108,8 +119,10 @@ public class Expt7_2
         String name;
         int expiration_date;
         long number;
+        //System.out.println("Which person wants to buy something");
         for(int i=0;i<5;i++)
         {
+            System.out.println("For Person "+(i+1)+":");
             System.out.println("What do you want to buy?\n1 - Clothes\n2 - Accessories\n3 - Both");
             int n = sc.nextInt();
             if(n==1)
@@ -127,7 +140,7 @@ public class Expt7_2
                 else
                 {
                     System.out.println("Enter your Credit Card Details:\n1 - Name\n2 - Expiration Date\n3 - Credit Card Number");
-                    name = sc.nextLine();
+                    name = sc.next();
                     expiration_date = sc.nextInt();
                     number = sc.nextLong();
                     person_c[i] = new CreditCashPayment(name,expiration_date,number);
@@ -150,7 +163,7 @@ public class Expt7_2
                 else
                 {
                     System.out.println("Enter your Credit Card Details:\n1 - Name\n2 - Expiration Date\n3 - Credit Card Number");
-                    name = sc.nextLine();
+                    name = sc.next();
                     expiration_date = sc.nextInt();
                     number = sc.nextLong();
                     person_c[i] = new CreditCashPayment(name,expiration_date,number);
@@ -175,7 +188,7 @@ public class Expt7_2
                 else
                 {
                     System.out.println("Enter your Credit Card Details:\n1 - Name\n2 - Expiration Date\n3 - Credit Card Number");
-                    name = sc.nextLine();
+                    name = sc.next();
                     expiration_date = sc.nextInt();
                     number = sc.nextLong();
                     person_c[i] = new CreditCashPayment(name,expiration_date,number);
@@ -183,6 +196,7 @@ public class Expt7_2
                     person_c[i].display();
                 }
             }
+            System.out.println("\n");
             
         }
         sc.close();
