@@ -1,7 +1,5 @@
 import java.util.Scanner;
 import java.lang.Math;
-import java.rmi.server.SocketSecurityException;
-import java.util.Arrays;
 interface RandWord
 {
 	public String[] words = new String[10];
@@ -26,7 +24,7 @@ class Game implements RandWord
 	public String ChooseRandomWord()
 	{
 		int index;
-		index = (int)Math.random()*10;
+		index = (int)((Math.random()*10));
 		return words[index];		
 	}
 	
@@ -37,33 +35,31 @@ public class Hangman
 	{
 		Scanner sc = new Scanner(System.in);
 		int chance=8,flag1=0,flag2=0;
-		//String temp1;
 		RandWord ob = new Game();
 		ob.initDictionary();
 		String word = ob.ChooseRandomWord();
 		System.out.println("Welcome to Hangman!");
+		System.out.println("I will guess a secret word. On each turn you guess a letter. If the letter is in the secret word, I will show you where it appears; if not a part of your body gets strung up on the scraffold. The object is to guess the word before you are hung.");
 		int len = word.length();
 		char[] temp = new char[len];
 		for(int j=0;j<len;j++)
 		{
 			temp[j] = '-';
 		}
-		System.out.println(word);
+		System.out.println("The word now looks like this:");
 		for(int j=0;j<len;j++)
 		{
 			System.out.print(temp[j]);
 		}
-		//char[] temp = temp1.toCharArray();
 		System.out.println("\n");
 		while(chance!=0)
 		{
-			System.out.println("Enter any letter:");
+			System.out.println("Guess the letter:");
 			char letter = sc.next().charAt(0);
 			for(int j=0;j<len;j++)
 			{
 				if(word.charAt(j)==letter)
 				{
-					System.out.println(word.charAt(j));
 					temp[j] = letter;
 				}
 			}
@@ -100,13 +96,21 @@ public class Hangman
 			if(flag1==0)
 			{
 				chance--;
-				System.out.println("Wrong letter");
+				if(chance==0)
+				{
+					System.out.println("You are dead");
+					break;
+				}
+				System.out.println("Oops! wrong guess");
+				System.out.println("You have "+chance+" chances left");
 				for(int j=0;j<len;j++)
 				{
 					System.out.print(temp[j]);
 				}
+				System.out.println("\n");
 			}
 		}
+		
 		sc.close();
 	}
 }
